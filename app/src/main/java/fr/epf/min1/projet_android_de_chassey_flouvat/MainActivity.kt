@@ -12,7 +12,6 @@ import fr.epf.min1.projet_android_de_chassey_flouvat.repository.ProductRepositor
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         val repository = ProductRepository()
