@@ -1,11 +1,16 @@
 package fr.epf.min1.projet_android_de_chassey_flouvat
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.PopupMenu
 import android.widget.Toast
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -27,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val accountCard = findViewById<MaterialCardView>(R.id.main_Account_Card)
+
+        val searchEditText = findViewById<AutoCompleteTextView>(R.id.search_edit_text)
+        val searchButton = findViewById<CardView>(R.id.search_button)
+        var allProduits: List<Product> = emptyList()
 
         accountCard.setOnClickListener { view ->
             val popup = PopupMenu(this, view)
@@ -55,6 +64,12 @@ class MainActivity : AppCompatActivity() {
         val repository = ProductRepository()
         repository.getAllProducts().observe(this) { produits ->
             if (!produits.isNullOrEmpty()) {
+                allProduits=produits
+
+                val nomsProduits = allProduits.map { it.title }
+                val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, nomsProduits)
+                searchEditText.setAdapter(adapter)
+
                 val top10 = produits.take(10)
 
                 val categories = produits.map { it.category }.distinct()
@@ -67,28 +82,35 @@ class MainActivity : AppCompatActivity() {
                     textView.text = categorie
 
                     card.setOnClickListener {
-                        Toast.makeText(this, "Catégorie : $categorie", Toast.LENGTH_SHORT).show()
-                        // ➕ Bonus : tu peux ici filtrer les produits
+                        val produitsFiltres = produits.filter { it.category == categorie }
+                        AfficherProduits(produitsFiltres, container)
                     }
 
                     categoriesContainer.addView(card)
                 }
-                for (i in 0 until top10.size step 2) {
-                    val rowView = LayoutInflater.from(this).inflate(R.layout.item_product_row, container, false) as LinearLayout
+                AfficherProduits(produits.take(10), container)
 
-                    val card1 = rowView.getChildAt(0)
-                    val card2 = rowView.getChildAt(1)
+                searchButton.setOnClickListener {
+                    val query = searchEditText.text.toString().trim()
+                    val resultats = allProduits.filter { it.title.contains(query, ignoreCase = true) }
+                    AfficherProduits(resultats, container)
+                }
+                searchEditText.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        container.removeAllViews()
+                    }
+                }
+                searchEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                    remplirProduitDansCard(card1, top10[i])
-
-                    if (i + 1 < top10.size) {
-                        remplirProduitDansCard(card2, top10[i + 1])
-                    } else {
-                        card2.visibility = View.INVISIBLE
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        val query = s.toString().trim()
+                        val resultats = allProduits.filter { it.title.contains(query, ignoreCase = true) }
+                        AfficherProduits(resultats, container)
                     }
 
-                    container.addView(rowView)
-                }
+                    override fun afterTextChanged(s: Editable?) {}
+                })
             }
         }
 
@@ -112,5 +134,25 @@ class MainActivity : AppCompatActivity() {
 
         // Attache le produit à la vue (via tag)
         cardView.tag = produit
+    }
+
+    private fun AfficherProduits(produits : List<Product>, container : LinearLayout){
+        container.removeAllViews()
+        for (i in 0 until produits.size step 2) {
+            val rowView = LayoutInflater.from(this).inflate(R.layout.item_product_row, container, false) as LinearLayout
+
+            val card1 = rowView.getChildAt(0)
+            val card2 = rowView.getChildAt(1)
+
+            remplirProduitDansCard(card1, produits[i])
+
+            if (i + 1 < produits.size) {
+                remplirProduitDansCard(card2, produits[i + 1])
+            } else {
+                card2.visibility = View.INVISIBLE
+            }
+
+            container.addView(rowView)
+        }
     }
 }
