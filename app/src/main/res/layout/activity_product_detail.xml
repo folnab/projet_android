@@ -92,16 +92,26 @@
                     android:lineSpacingExtra="4dp"
                     android:layout_marginTop="8dp" />
 
-                <Button
-                    android:id="@+id/addToCartButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:background="#1580D7"
-                    android:padding="16dp"
-                    android:text="Add to Cart"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+            <Button
+                android:id="@+id/addToCartButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="#1580D7"
+                android:padding="16dp"
+                android:text="Add to Cart"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/qrCodeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📱 Générer QR Code"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:background="#FF9800"
+                android:layout_marginTop="16dp"
+                android:padding="16dp" />
 
             </LinearLayout>
         </ScrollView>

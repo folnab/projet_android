@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,6 +26,8 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var productDescription: TextView
     private lateinit var addToCartButton: Button
     private lateinit var backButton: Button
+    private lateinit var qrCodeButton: Button
+
 
     private var currentProduct: Product? = null
 
@@ -59,6 +62,14 @@ class ProductDetailActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+        qrCodeButton.setOnClickListener {
+            val productId = intent.getIntExtra("PRODUCT_ID", -1)
+            if (productId != -1) {
+                val intent = Intent(this, QRCodeActivity::class.java)
+                intent.putExtra("PRODUCT_ID", productId)
+                startActivity(intent)
+            }
+        }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
@@ -91,41 +102,45 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
-        productImage = findViewById(R.id.productImage)
-        productTitle = findViewById(R.id.productTitle)
-        productPrice = findViewById(R.id.productPrice)
-        productCategory = findViewById(R.id.productCategory)
-        productDescription = findViewById(R.id.productDescription)
-        addToCartButton = findViewById(R.id.addToCartButton)
-        backButton = findViewById(R.id.backButton)
-    }
+        private fun initViews() {
+            productImage = findViewById(R.id.productImage)
+            productTitle = findViewById(R.id.productTitle)
+            productPrice = findViewById(R.id.productPrice)
+            productCategory = findViewById(R.id.productCategory)
+            productDescription = findViewById(R.id.productDescription)
+            addToCartButton = findViewById(R.id.addToCartButton)
+            backButton = findViewById(R.id.backButton)
+            qrCodeButton = findViewById(R.id.qrCodeButton)
+        }
 
-    private fun loadProductDetails(productId: Int) {
-        val repository = fr.epf.min1.projet_android_de_chassey_flouvat.repository.ProductRepository()
+        private fun loadProductDetails(productId: Int) {
+            val repository =
+                fr.epf.min1.projet_android_de_chassey_flouvat.repository.ProductRepository()
 
-        repository.getProductById(productId).observe(this) { product ->
-            if (product != null) {
-                displayProduct(product)
-            } else {
-                Toast.makeText(this, "Erreur lors du chargement du produit", Toast.LENGTH_SHORT).show()
-                finish()
+            repository.getProductById(productId).observe(this) { product ->
+                if (product != null) {
+                    displayProduct(product)
+                } else {
+                    Toast.makeText(this, "Erreur lors du chargement du produit", Toast.LENGTH_SHORT)
+                        .show()
+                    finish()
+                }
             }
         }
-    }
 
-    private fun displayProduct(product: Product) {
-        currentProduct = product  // AJOUTER cette ligne
+        private fun displayProduct(product: Product) {
+            currentProduct = product  // AJOUTER cette ligne
 
-        productTitle.text = product.title
-        productPrice.text = "€${product.price}"
-        productCategory.text = product.category
-        productDescription.text = product.description
+            productTitle.text = product.title
+            productPrice.text = "€${product.price}"
+            productCategory.text = product.category
+            productDescription.text = product.description
 
-        Glide.with(this)
-            .load(product.image)
-            .placeholder(android.R.drawable.ic_menu_gallery)
-            .error(android.R.drawable.ic_menu_report_image)
-            .into(productImage)
-    }
+            Glide.with(this)
+                .load(product.image)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
+                .into(productImage)
+        }
+
 }
