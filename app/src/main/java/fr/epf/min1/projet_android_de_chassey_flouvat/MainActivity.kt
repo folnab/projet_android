@@ -16,16 +16,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val repository = ProductRepository()
-        repository.getAllProducts().observe(this, Observer { produits ->
-            Log.d("PRODUCTS", "Produits chargés : $produits")
-        })
-        /* TEST TEMPORAIRE
-        val intent = Intent(this, ProductDetailActivity::class.java)
-        intent.putExtra("PRODUCT_ID", 1)
-        startActivity(intent)
-        */
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

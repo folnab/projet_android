@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.Product
 import fr.epf.min1.projet_android_de_chassey_flouvat.viewmodel.ProductViewModel
+import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -22,11 +23,14 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var addToCartButton: Button
     private lateinit var backButton: Button
 
+    private var currentProduct: Product? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
         initViews()
+
 
         //ViewModel
         productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
@@ -43,7 +47,10 @@ class ProductDetailActivity : AppCompatActivity() {
 
         //bouton ajouter au panier
         addToCartButton.setOnClickListener {
-            Toast.makeText(this, "Produit ajouté au panier !", Toast.LENGTH_SHORT).show()
+            currentProduct?.let { product ->
+                CartManager.addProduct(product)
+                Toast.makeText(this, "Produit ajouté au panier !", Toast.LENGTH_SHORT).show()
+            }
         }
         //bouton retour
         backButton.setOnClickListener {
@@ -75,6 +82,8 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun displayProduct(product: Product) {
+        currentProduct = product  // AJOUTER cette ligne
+
         productTitle.text = product.title
         productPrice.text = "€${product.price}"
         productCategory.text = product.category
@@ -83,7 +92,7 @@ class ProductDetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(product.image)
             .placeholder(android.R.drawable.ic_menu_gallery)
-            .error(android.R.drawable.ic_menu_report_image) // si erreur
+            .error(android.R.drawable.ic_menu_report_image)
             .into(productImage)
     }
 }

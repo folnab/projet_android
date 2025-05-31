@@ -5,8 +5,19 @@
     <string name="product_image">Product Image</string>
     <string name="product_title">Product Title</string>
     <string name="default_price">€0.00</string>
+    <string name="default_quantity">1</string>
+    <string name="minus_symbol">-</string>
+    <string name="plus_symbol">+</string>
+    <string name="delete_item">Supprimer</string>
     <string name="category">Category</string>
     <string name="description">Description</string>
     <string name="product_description_placeholder">Product description displayed here</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="votre_panier_est_vide">Votre panier est vide</string>
+    <string name="cadie">🛒</string>
+    <string name="total">Total:</string>
+    <string name="defaut_price">€0.00</string>
+    <string name="commander">Commander</string>
+    <string name="retour">Retour</string>
+    <string name="mon_panier">Mon Panier</string>
 </resources>
