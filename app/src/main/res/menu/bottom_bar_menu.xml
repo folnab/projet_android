@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/Home"
+      android:title="Accueil"
+      android:icon="@drawable/outline_cottage_24"/>
+  <item
+      android:id="@+id/Search"
+      android:title="Rechercher"
+      android:icon="@drawable/baseline_search_24"/>
+  <item
+      android:id="@+id/hidden"
+      android:title=""/>
+  <item
+      android:id="@+id/scan"
+      android:title="Scanner"
+      android:icon="@drawable/outline_camera_alt_24"/>
+  <item
+      android:id="@+id/Account"
+      android:title="Compte"
+      android:icon="@drawable/outline_account_circle_24"/>
+</menu>
