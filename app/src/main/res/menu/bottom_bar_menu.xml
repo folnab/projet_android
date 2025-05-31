@@ -12,7 +12,7 @@
       android:id="@+id/hidden"
       android:title=""/>
   <item
-      android:id="@+id/scan"
+      android:id="@+id/Scan"
       android:title="Scanner"
       android:icon="@drawable/outline_camera_alt_24"/>
   <item

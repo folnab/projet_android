@@ -111,6 +111,9 @@
                         android:id="@+id/search_button"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:backgroundTint="@color/white"
                         app:cardElevation="4dp">
 
                         <ImageView
@@ -161,40 +164,7 @@
 
     </LinearLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/main_bottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/fade_gray"
-            app:fabAlignmentMode="center"
-            app:hideOnScroll="true">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:labelVisibilityMode="unlabeled"
-                android:layout_marginEnd="16dp"
-                app:itemIconTint="@color/black"
-                android:background="@android:color/transparent"
-                app:menu="@menu/bottom_bar_menu" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_shopping_cart_24"
-            app:layout_anchor="@id/main_bottomBar"
-            android:backgroundTint="@color/primary"
-            />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <include layout="@layout/include_bottom_nav_with_fab"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

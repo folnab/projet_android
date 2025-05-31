@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+    android:layout_weight="1">
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/main_bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/fade_gray"
+        app:fabAlignmentMode="center"
+        app:hideOnScroll="true">
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cart"
+        app:layout_anchor="@id/main_bottomBar"
+        android:backgroundTint="@color/primary" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:itemIconTint="@color/black"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_bar_menu" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
