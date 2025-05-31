@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Projet_android_De_Chassey_Flouvat</string>
+
+    <!-- Product Detail strings -->
+    <string name="product_image">Product Image</string>
+    <string name="product_title">Product Title</string>
+    <string name="default_price">€0.00</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="product_description_placeholder">Product description displayed here</string>
+    <string name="add_to_cart">Add to Cart</string>
 </resources>
