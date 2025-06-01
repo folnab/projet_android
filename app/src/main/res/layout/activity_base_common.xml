@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fade_gray">
+
+        <!-- Header commun -->
+        <include layout="@layout/include_header" />
+
+        <!-- Contenu propre à chaque activité -->
+        <FrameLayout
+            android:id="@+id/base_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+    <include layout="@layout/include_bottom_nav_with_fab" />
+</androidx.constraintlayout.widget.ConstraintLayout>

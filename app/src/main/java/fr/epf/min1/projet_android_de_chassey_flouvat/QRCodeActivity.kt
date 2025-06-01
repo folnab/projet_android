@@ -15,18 +15,17 @@ import com.google.zxing.qrcode.QRCodeWriter
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.Product
 import fr.epf.min1.projet_android_de_chassey_flouvat.repository.ProductRepository
 
-class QRCodeActivity : AppCompatActivity() {
+class QRCodeActivity : BaseActivity() {
 
     private lateinit var qrCodeImageView: ImageView
     private lateinit var productInfoText: TextView
-    private lateinit var backButton: Button
     private lateinit var scanButton: Button
 
     private var currentProduct: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qr_code)
+        setContentLayout(R.layout.activity_qr_code)
 
         initViews()
         setupButtons()
@@ -43,15 +42,10 @@ class QRCodeActivity : AppCompatActivity() {
 
     private fun initViews() {
         qrCodeImageView = findViewById(R.id.qrCodeImageView)
-        backButton = findViewById(R.id.backButton)
         scanButton = findViewById(R.id.scanButton)
     }
 
     private fun setupButtons() {
-        backButton.setOnClickListener {
-            finish()
-        }
-
         scanButton.setOnClickListener {
             val intent = Intent(this, QrScannerActivity::class.java)
             startActivity(intent)

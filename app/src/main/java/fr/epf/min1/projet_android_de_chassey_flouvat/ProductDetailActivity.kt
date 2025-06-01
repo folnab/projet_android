@@ -15,7 +15,7 @@ import fr.epf.min1.projet_android_de_chassey_flouvat.data.Product
 import fr.epf.min1.projet_android_de_chassey_flouvat.viewmodel.ProductViewModel
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
 
-class ProductDetailActivity : AppCompatActivity() {
+class ProductDetailActivity : BaseActivity() {
 
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productImage: ImageView
@@ -32,7 +32,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_detail)
+        setContentLayout(R.layout.activity_product_detail)
 
         initViews()
 
@@ -70,37 +70,6 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            startActivity(Intent(this, CartActivity::class.java))
-        }
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.Home -> {
-                    if (this::class != MainActivity::class) {
-                        startActivity(Intent(this, MainActivity::class.java))
-                    }
-                    true
-                }
-                R.id.Search -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("focus_search", true)
-                    startActivity(intent)
-                    true
-                }
-                R.id.Scan -> {
-                    val intent = Intent(this, QrScannerActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.Account -> {
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
         private fun initViews() {

@@ -29,12 +29,22 @@ import android.view.inputmethod.InputMethodManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
+import fr.epf.min1.projet_android_de_chassey_flouvat.repository.UserRepository
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val userRepo=UserRepository()
+
+        userRepo.getAllUsers().observe(this) { users ->
+            if (users.isNotEmpty()) {
+                Log.d("USER_TEST", "Utilisateurs récupérés : $users")
+            } else {
+                Log.d("USER_TEST", "Aucun utilisateur trouvé ou erreur.")
+            }
+        }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
 
@@ -69,19 +79,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         accountCard.setOnClickListener { view ->
+            val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+            val isLoggedIn = prefs.getBoolean("is_logged_in", false)
+
             val popup = PopupMenu(this, view)
-            popup.menuInflater.inflate(R.menu.account_popup_menu, popup.menu)
+
+            if (isLoggedIn) {
+                popup.menuInflater.inflate(R.menu.account_popup_menu, popup.menu)
+            } else {
+                popup.menuInflater.inflate(R.menu.account_popup_menu_guest, popup.menu)
+            }
 
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_profile -> {
                         Toast.makeText(this, "Profil cliqué", Toast.LENGTH_SHORT).show()
-                        // Ex: startActivity(Intent(this, ProfileActivity::class.java))
+                        startActivity(Intent(this, ProfileActivity::class.java))
                         true
                     }
                     R.id.menu_logout -> {
                         Toast.makeText(this, "Déconnexion", Toast.LENGTH_SHORT).show()
-                        // Ex: logique de déconnexion
+                        prefs.edit().clear().apply()
+                        true
+                    }
+                    R.id.menu_login -> {
+                        startActivity(Intent(this, LoginActivity::class.java))
                         true
                     }
                     else -> false
@@ -163,6 +185,17 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.Account -> {
+                    val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+                    val isLoggedIn = prefs.getBoolean("is_logged_in", false)
+
+                    if (!isLoggedIn) {
+                        // Redirige vers la page de connexion
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        // Redirige vers l'activité de profil (à créer éventuellement)
+                        Toast.makeText(this, "Déjà connecté", Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
                 else -> false

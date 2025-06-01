@@ -16,13 +16,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
 
-class CartActivity : AppCompatActivity() {
+class CartActivity : BaseActivity() {
 
     private lateinit var cartRecyclerView: RecyclerView
     private lateinit var emptyCartLayout: LinearLayout
     private lateinit var cartFooter: LinearLayout
     private lateinit var totalPriceText: TextView
-    private lateinit var backButton: Button
     private lateinit var clearCartButton: Button
     private lateinit var checkoutButton: Button
 
@@ -30,45 +29,15 @@ class CartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
+        setContentLayout(R.layout.activity_cart)
+
+        val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+        val userId = prefs.getInt("user_id", -1)
 
         initViews()
         setupRecyclerView()
         setupButtons()
         updateUI()
-
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            startActivity(Intent(this, CartActivity::class.java))
-        }
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.Home -> {
-                    if (this::class != MainActivity::class) {
-                        startActivity(Intent(this, MainActivity::class.java))
-                    }
-                    true
-                }
-                R.id.Search -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("focus_search", true)
-                    startActivity(intent)
-                    true
-                }
-                R.id.Scan -> {
-                    val intent = Intent(this, QrScannerActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.Account -> {
-                    true
-                }
-                else -> false
-            }
-        }
-
     }
 
     private fun initViews() {
@@ -76,7 +45,6 @@ class CartActivity : AppCompatActivity() {
         emptyCartLayout = findViewById(R.id.emptyCartLayout)
         cartFooter = findViewById(R.id.cartFooter)
         totalPriceText = findViewById(R.id.totalPriceText)
-        backButton = findViewById(R.id.backButton)
         clearCartButton = findViewById(R.id.clearCartButton)
         checkoutButton = findViewById(R.id.checkoutButton)
     }
@@ -94,10 +62,6 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        // Bouton retour
-        backButton.setOnClickListener {
-            finish()
-        }
 
         // Bouton vider le panier
         clearCartButton.setOnClickListener {

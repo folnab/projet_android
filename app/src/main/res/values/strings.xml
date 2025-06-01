@@ -20,4 +20,5 @@
     <string name="commander">Commander</string>
     <string name="retour">Retour</string>
     <string name="mon_panier">Mon Panier</string>
+    <string name="mon_profile">Mon Profile</string>
 </resources>

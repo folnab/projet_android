@@ -31,6 +31,9 @@
         </activity>
 
         <!-- Activités de l'app -->
+        <activity android:name=".BaseActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ProductDetailActivity"
             android:exported="false" />
@@ -46,7 +49,17 @@
         <!-- Activité du scanner ZXing -->
         <activity android:name=".QrScannerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false" />
+
+        <activity android:name=".LoginActivity"
+            android:exported="false" />
+
+        <activity android:name=".RegisterActivity"
+            android:exported="false" />
+
+        <activity android:name=".ProfileActivity"
+            android:exported="false" />
 
     </application>
 
