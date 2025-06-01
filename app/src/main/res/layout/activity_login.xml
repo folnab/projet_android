@@ -18,14 +18,16 @@
                 android:id="@+id/username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nom d'utilisateur"/>
+                android:hint="Nom d'utilisateur"
+                android:textColorHint="@color/gray"/>
 
             <EditText
                 android:id="@+id/password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mot de passe"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textColorHint="@color/gray"/>
 
             <Button
                 android:id="@+id/login_button"

@@ -47,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_profile -> {
-                        Toast.makeText(this, "Profil cliqué", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Profil", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, ProfileActivity::class.java))
                         true
                     }
@@ -98,12 +98,11 @@ abstract class BaseActivity : AppCompatActivity() {
                     val isLoggedIn = prefs.getBoolean("is_logged_in", false)
 
                     if (!isLoggedIn) {
-                        // Redirige vers la page de connexion
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                     } else {
-                        // Redirige vers l'activité de profil (à créer éventuellement)
-                        Toast.makeText(this, "Déjà connecté", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                        Toast.makeText(this, "Profil", Toast.LENGTH_SHORT).show()
                     }
                     true
                 }

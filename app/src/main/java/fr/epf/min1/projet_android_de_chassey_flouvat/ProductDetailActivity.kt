@@ -24,7 +24,6 @@ class ProductDetailActivity : BaseActivity() {
     private lateinit var productCategory: TextView
     private lateinit var productDescription: TextView
     private lateinit var addToCartButton: Button
-    private lateinit var backButton: Button
     private lateinit var qrCodeButton: Button
 
 
@@ -57,10 +56,6 @@ class ProductDetailActivity : BaseActivity() {
                 Toast.makeText(this, "Produit ajouté au panier !", Toast.LENGTH_SHORT).show()
             }
         }
-        //bouton retour
-        backButton.setOnClickListener {
-            finish()
-        }
         qrCodeButton.setOnClickListener {
             val productId = intent.getIntExtra("PRODUCT_ID", -1)
             if (productId != -1) {
@@ -79,7 +74,6 @@ class ProductDetailActivity : BaseActivity() {
             productCategory = findViewById(R.id.productCategory)
             productDescription = findViewById(R.id.productDescription)
             addToCartButton = findViewById(R.id.addToCartButton)
-            backButton = findViewById(R.id.backButton)
             qrCodeButton = findViewById(R.id.qrCodeButton)
         }
 

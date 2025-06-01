@@ -112,12 +112,43 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 
 ## Fonctionnalités supplémentaires
 
-### Gestion compte utilisateur
+### Création de compte
+- Formulaire d'inscription avec saisie username, email, password
+- Appel à l'API POST /users via UserService pour l’enregistrement
+- Affichage de feedback en cas de succès ou d’erreur
+- Redirection vers la page de connexion après validation
 
-#### Création de compte
+#### Implémentation technique :
+- Formulaire intégré dans RegisterActivity avec validation de saisie
+- Repository UserRepository pour encapsuler les appels Retrofit
+- Utilisation de LiveData pour la réponse de l’API
+- Gestion de l’état de session via SharedPreferences
 
-#### Connexion
+### Connexion
+- Formulaire de connexion avec authentification par username et password
+- Appel à l’API POST /auth/login et récupération du token
+- Enregistrement de la session locale (is_logged_in, user_id, username, email)
+- Redirection automatique vers la page d’accueil en cas de succès
 
+#### Implémentation technique :
+- LoginActivity avec appels à AuthRepository et AuthService
+- Observation LiveData pour affichage dynamique du résultat de connexion
+- Sauvegarde des informations de session dans SharedPreferences
+- Navigation conditionnelle basée sur l'état de connexion
+
+### Profil utilisateur
+- Accès au profil depuis le menu Account si l’utilisateur est connecté
+- Affichage du username et de l’email dans ProfileActivity
+- Affichage conditionnel du menu popup :
+- Si connecté → Profil, Déconnexion
+- Si non connecté → Connexion
+- Déconnexion possible via le menu, avec suppression des données de session
+
+#### Implémentation technique :
+- BaseActivity abstraite pour centraliser le layout commun (header, nav bar, FAB)
+- Injection dynamique du contenu via setContentLayout() dans les activités enfants
+- Utilisation de SharedPreferences pour stocker et récupérer l’état de session
+- Menu dynamique via PopupMenu selon l’état utilisateur
 
 ## Permissions et Fonctionnalités
 
