@@ -1,7 +1,10 @@
 package fr.epf.min1.projet_android_de_chassey_flouvat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -9,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
 
 class CartActivity : AppCompatActivity() {
@@ -31,6 +36,37 @@ class CartActivity : AppCompatActivity() {
         setupRecyclerView()
         setupButtons()
         updateUI()
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.Home -> {
+                    if (this::class != MainActivity::class) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                    true
+                }
+                R.id.Search -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("focus_search", true)
+                    startActivity(intent)
+                    true
+                }
+                R.id.Scan -> {
+                    true
+                }
+                R.id.Account -> {
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
 
     private fun initViews() {

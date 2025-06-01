@@ -1,5 +1,6 @@
 package fr.epf.min1.projet_android_de_chassey_flouvat
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -8,6 +9,8 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.Product
 import fr.epf.min1.projet_android_de_chassey_flouvat.viewmodel.ProductViewModel
 import fr.epf.min1.projet_android_de_chassey_flouvat.data.CartManager
@@ -55,6 +58,36 @@ class ProductDetailActivity : AppCompatActivity() {
         //bouton retour
         backButton.setOnClickListener {
             finish()
+        }
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.Home -> {
+                    if (this::class != MainActivity::class) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                    true
+                }
+                R.id.Search -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("focus_search", true)
+                    startActivity(intent)
+                    true
+                }
+                R.id.Scan -> {
+                    true
+                }
+                R.id.Account -> {
+                    true
+                }
+                else -> false
+            }
         }
     }
 

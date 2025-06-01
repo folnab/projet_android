@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val fab = findViewById<FloatingActionButton>(R.id.fab)
 
         fab.setOnClickListener {
@@ -47,6 +48,25 @@ class MainActivity : AppCompatActivity() {
         val searchEditText = findViewById<AutoCompleteTextView>(R.id.search_edit_text)
         val searchButton = findViewById<CardView>(R.id.search_button)
         var allProduits: List<Product> = emptyList()
+        val container = findViewById<LinearLayout>(R.id.main_product_container)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
+                container.removeAllViews()
+            }
+        }
+
+        val shouldFocusSearch = intent.getBooleanExtra("focus_search", false)
+        if (shouldFocusSearch) {
+            bottomNav.selectedItemId = R.id.Search
+            container.removeAllViews()
+            searchEditText?.requestFocus()
+            imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
+        }
 
         accountCard.setOnClickListener { view ->
             val popup = PopupMenu(this, view)
@@ -71,7 +91,6 @@ class MainActivity : AppCompatActivity() {
             popup.show()
         }
 
-        val container = findViewById<LinearLayout>(R.id.main_product_container)
         val repository = ProductRepository()
         repository.getAllProducts().observe(this) { produits ->
             if (!produits.isNullOrEmpty()) {
@@ -103,18 +122,10 @@ class MainActivity : AppCompatActivity() {
 
                 searchButton.setOnClickListener {
                     searchEditText?.clearFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
                     val query = searchEditText.text.toString().trim()
                     val resultats = allProduits.filter { it.title.contains(query, ignoreCase = true) }
                     AfficherProduits(resultats, container)
-                }
-                searchEditText.setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
-                        container.removeAllViews()
-                    }
                 }
                 searchEditText.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -130,7 +141,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Home -> {
@@ -138,18 +148,14 @@ class MainActivity : AppCompatActivity() {
 
                     searchEditText?.clearFocus()
 
-                    // 2. Cacher le clavier s'il est ouvert
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
 
-                    // 3. Réafficher les 10 premiers produits
                     AfficherProduits(allProduits.take(10), findViewById(R.id.main_product_container))
 
                     true
                 }
                 R.id.Search -> {
                     searchEditText?.requestFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
                     true
                 }
