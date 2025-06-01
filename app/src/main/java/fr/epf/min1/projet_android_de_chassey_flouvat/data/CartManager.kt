@@ -21,6 +21,7 @@ object CartManager {
             removeProduct(productId)
         } else {
             cartItems.find { it.product.id == productId }?.quantity = newQuantity
+
         }
     }
 

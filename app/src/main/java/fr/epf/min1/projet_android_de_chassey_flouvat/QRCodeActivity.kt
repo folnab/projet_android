@@ -53,8 +53,8 @@ class QRCodeActivity : AppCompatActivity() {
         }
 
         scanButton.setOnClickListener {
-            // Pour l'instant, juste un message
-            Toast.makeText(this, "Scanner à venir ! Utilisez votre app QR favorite pour scanner ce code", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, QrScannerActivity::class.java)
+            startActivity(intent)
         }
     }
 

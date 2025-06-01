@@ -23,8 +23,8 @@ class CartAdapter(
         val productPrice: TextView = itemView.findViewById(R.id.productPrice)
         val quantityText: TextView = itemView.findViewById(R.id.quantityText)
         val totalPrice: TextView = itemView.findViewById(R.id.totalPrice)
-        val decreaseButton: Button = itemView.findViewById(R.id.decreaseButton)
-        val increaseButton: Button = itemView.findViewById(R.id.increaseButton)
+        val decreaseButton: ImageButton = itemView.findViewById(R.id.decreaseButton)
+        val increaseButton: ImageButton = itemView.findViewById(R.id.increaseButton)
         val removeButton: ImageButton = itemView.findViewById(R.id.removeButton)
     }
 
@@ -57,6 +57,7 @@ class CartAdapter(
             if (newQuantity > 0) {
                 CartManager.updateQuantity(product.id, newQuantity)
                 cartItem.quantity = newQuantity
+
                 notifyItemChanged(position)
             } else {
                 CartManager.removeProduct(product.id)
