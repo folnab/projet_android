@@ -23,7 +23,7 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 **https://fakestoreapi.com/**
 
 
-## Architecture Technique
+## Architecture
 
 ### Structure des Activités
 
@@ -110,6 +110,14 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 - Mise à jour dynamique de l'affichage
 - Callbacks pour synchronisation avec CartManager
 
+## Fonctionnalités supplémentaires
+
+### Gestion compte utilisateur
+
+#### Création de compte
+
+#### Connexion
+
 
 ## Permissions et Fonctionnalités
 
@@ -123,14 +131,6 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 ```xml
 <uses-feature android:name="android.hardware.camera" android:required="false" />
 ```
-
-## Fonctionnalités supplémentaires
-
-### Gestion compte utilisateur
-
-#### Création de compte
-
-#### Connexion
 
 ## Installation et Déploiement
 
