@@ -100,8 +100,6 @@ class MainActivity : AppCompatActivity() {
                 val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, nomsProduits)
                 searchEditText.setAdapter(adapter)
 
-                val top10 = produits.take(10)
-
                 val categories = produits.map { it.category }.distinct()
                 val categoriesContainer = findViewById<LinearLayout>(R.id.categories_container)
 
@@ -160,6 +158,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.Scan -> {
+                    val intent = Intent(this, QrScannerActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.Account -> {
