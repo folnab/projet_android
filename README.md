@@ -116,6 +116,7 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 - Formulaire d'inscription avec saisie username, email, password
 - Appel à l'API POST /users via UserService pour l’enregistrement
 - Affichage de feedback en cas de succès ou d’erreur
+  (l'API ignore ce qu'on lui envoie mais nous renvoie un code 200 donc la création du compte n'a pas vraiment lieu) 
 - Redirection vers la page de connexion après validation
 
 #### Implémentation technique :
@@ -129,6 +130,8 @@ Les données concernant les articles et la gestion du panier sont accessibles vi
 - Appel à l’API POST /auth/login et récupération du token
 - Enregistrement de la session locale (is_logged_in, user_id, username, email)
 - Redirection automatique vers la page d’accueil en cas de succès
+
+(pour test : regarder les logs (on a laissé les logs de tous les utilisaturs récupérés ou tester avec : username : "johnd", password: "m38emF$")
 
 #### Implémentation technique :
 - LoginActivity avec appels à AuthRepository et AuthService
