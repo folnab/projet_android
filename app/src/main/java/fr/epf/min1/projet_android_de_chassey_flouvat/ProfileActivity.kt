@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ProfileActivity : BaseActivity() {
 
+    override fun getBottomNavItemId(): Int = R.id.Account
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentLayout(R.layout.activity_profile)

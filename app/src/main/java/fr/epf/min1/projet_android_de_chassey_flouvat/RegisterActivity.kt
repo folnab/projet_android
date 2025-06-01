@@ -20,6 +20,8 @@ class RegisterActivity : BaseActivity() {
     private lateinit var registerButton: Button
     private val repository = UserRepository()
 
+    override fun getBottomNavItemId(): Int = R.id.Account
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentLayout(R.layout.activity_register)

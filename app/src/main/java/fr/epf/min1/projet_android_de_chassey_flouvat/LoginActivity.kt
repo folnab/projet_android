@@ -15,6 +15,8 @@ class LoginActivity : BaseActivity() {
 
     private val authRepo = AuthRepository()
 
+    override fun getBottomNavItemId(): Int = R.id.Account
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentLayout(R.layout.activity_login)

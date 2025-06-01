@@ -40,6 +40,8 @@ class CartActivity : BaseActivity() {
         updateUI()
     }
 
+    override fun getBottomNavItemId(): Int = R.id.Home
+
     private fun initViews() {
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
         emptyCartLayout = findViewById(R.id.emptyCartLayout)

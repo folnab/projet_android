@@ -29,6 +29,8 @@ class ProductDetailActivity : BaseActivity() {
 
     private var currentProduct: Product? = null
 
+    override fun getBottomNavItemId(): Int = R.id.Home
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentLayout(R.layout.activity_product_detail)

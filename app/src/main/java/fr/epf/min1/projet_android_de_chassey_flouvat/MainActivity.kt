@@ -77,6 +77,9 @@ class MainActivity : AppCompatActivity() {
             searchEditText?.requestFocus()
             imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
         }
+        else {
+            bottomNav.selectedItemId = R.id.Home
+        }
 
         accountCard.setOnClickListener { view ->
             val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
@@ -138,7 +141,9 @@ class MainActivity : AppCompatActivity() {
 
                     categoriesContainer.addView(card)
                 }
-                AfficherProduits(produits.take(10), container)
+                if(!shouldFocusSearch) {
+                    AfficherProduits(produits.take(10), container)
+                }
 
                 searchButton.setOnClickListener {
                     searchEditText?.clearFocus()

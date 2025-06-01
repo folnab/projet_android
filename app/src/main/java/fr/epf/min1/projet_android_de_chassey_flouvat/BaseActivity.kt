@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    abstract fun getBottomNavItemId(): Int
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_base_common)
@@ -73,6 +75,8 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        bottomNav.selectedItemId=getBottomNavItemId()
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
