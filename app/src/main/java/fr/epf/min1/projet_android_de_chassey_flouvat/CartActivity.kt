@@ -58,6 +58,8 @@ class CartActivity : AppCompatActivity() {
                     true
                 }
                 R.id.Scan -> {
+                    val intent = Intent(this, QrScannerActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.Account -> {

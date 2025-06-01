@@ -15,8 +15,6 @@ class QrScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("QR_DEBUG", "onCreate appelé")
-        Toast.makeText(this, "Activity lancée", Toast.LENGTH_SHORT).show()
 
         if (checkSelfPermission(android.Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
